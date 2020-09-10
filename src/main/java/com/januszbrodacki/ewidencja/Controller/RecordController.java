@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequestMapping("/record")
 @RestController
@@ -17,6 +18,7 @@ public class RecordController {
     public RecordController(RecordServiceImpl recordServiceImpl) {
         this.recordServiceImpl = recordServiceImpl;
     }
+
     @PostMapping("/add")
     public Record saveRecord(@RequestBody Record record){
         return recordServiceImpl.addNewRecord(record);
@@ -25,5 +27,9 @@ public class RecordController {
     @GetMapping("/list")
     public List<Record> getAllRecords(){
        return recordServiceImpl.findAllRecords();
+    }
+    @GetMapping("/{id}")
+    public Optional<Record> getRecordById(@PathVariable String id){
+        return recordServiceImpl.findRecordById(id);
     }
 }
