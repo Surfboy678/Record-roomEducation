@@ -1,26 +1,34 @@
 import React from 'react';
 import './App.css';
 import NavigationBar from './components/NavigationBar';
-import {Container, Row, Jumbotron } from 'react-bootstrap';
+import Welcome from './components/Welcome';
+import Record from './components/Record';
+import RecordList from './components/RecordList';
+import Footer from './components/Footer';
+import {Container, Row,  Col } from 'react-bootstrap';
+import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
+
 
 function App() {
+  const marginTop = {
+    marginTop : "10px"
+  }
   return (
-    <div className="App">
+    <Router>
       <NavigationBar/>
         <Container>
           <Row>
-          <Jumbotron>
-              <h1>Hello, world!</h1>
-              <p>
-                This is a simple hero unit, a simple jumbotron-style component for calling
-                extra attention to featured content or information.
-              </p>
-          </Jumbotron>
-
+            <Col lg = {12} style = {marginTop}>
+              <Switch>
+                  <Route path="/" exact component ={Welcome}/>
+                  <Route path="/add" exact component ={Record}/>
+                  <Route path="/list" exact component ={RecordList}/>
+              </Switch>            
+            </Col>
           </Row>
         </Container>
-    </div>
+        <Footer/>
+        </Router>
   );
 }
-
 export default App;
