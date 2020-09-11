@@ -28,6 +28,7 @@ public class RecordController {
     public List<Record> getAllRecords(){
        return recordServiceImpl.findAllRecords();
     }
+
     @GetMapping("/{id}")
     public Optional<Record> getRecordById(@PathVariable String id){
         return recordServiceImpl.findRecordById(id);
