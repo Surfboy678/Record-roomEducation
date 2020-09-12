@@ -8,7 +8,7 @@ class Welcome extends React.Component{
             <h1>Witam w ewidencji</h1>
             <blockquote className="blockquote mb-0">
             <p>
-              Jest to ewidencja sal dydaktycznych Politechniki Warszawskiej
+              Ewidencja sal dydaktycznych Politechniki Warszawskiej
             </p>
             <footer className = "blockquote-footer"></footer>
             </blockquote>
