@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @RequestMapping("/record")
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class RecordController {
 
     private RecordServiceImpl recordServiceImpl;
