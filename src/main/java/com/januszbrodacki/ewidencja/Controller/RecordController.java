@@ -3,6 +3,8 @@ package com.januszbrodacki.ewidencja.Controller;
 import com.januszbrodacki.ewidencja.model.Record;
 import com.januszbrodacki.ewidencja.service.RecordServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,4 +36,11 @@ public class RecordController {
     public Optional<Record> getRecordById(@PathVariable String id){
         return recordServiceImpl.findRecordById(id);
     }
+
+    @PutMapping("/update")
+    public @ResponseBody
+    ResponseEntity<Record> updateRecord(@Validated @RequestBody Record record){
+        return ResponseEntity.ok(recordServiceImpl.addNewRecord(record));
+    }
+
 }

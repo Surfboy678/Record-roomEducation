@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Table, Button, ButtonGroup } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faList, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faList, faEdit, faTrash, faEye } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios';
 
 
@@ -33,7 +33,7 @@ export default class RecordList extends Component{
     render(){
         return(
                     <Table float left striped bordered hover variant="dark">                        
-                   
+                    <thead>
                     <tr align="left">
                                <td colSpan="12"><FontAwesomeIcon icon={faList}/> Lista sal</td>
                            </tr>
@@ -47,11 +47,9 @@ export default class RecordList extends Component{
                             <th>Liczba tablic</th>
                             <th>Projektory multimedialne</th>
                             <th>Projektory tradycyjne</th>
-                            <th>Kod referencyjny</th>
-                            <th>Jednostka odpowiedzialna</th>
                             <th>Akcja</th>
                             </tr>
-                        
+                        </thead>
                         <tbody>
                         {this.state.records.length === 0 ?
                            <tr align="center">
@@ -68,12 +66,12 @@ export default class RecordList extends Component{
                                    <td>{record.numberOfBoard}</td>
                                    <td>{record.numberOfMultimediaProjectors}</td>
                                    <td>{record.numberOfTraditionalProjectors}</td>
-                                   <td>{record.referenceCode}</td>
-                                   <td>{record.responseUnit}</td>
                                    <td>
                                        <ButtonGroup>
+                                       <Button size="sm" variant="outline-info"><FontAwesomeIcon icon={faEye}/></Button>{' '}
                                            <Button size="sm" variant="outline-primary"><FontAwesomeIcon icon={faEdit}/></Button>{' '}
                                            <Button size="sm" variant="outline-danger"><FontAwesomeIcon icon={faTrash}/></Button>
+                                          
                                        </ButtonGroup>
                                    </td>
 
