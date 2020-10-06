@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Table, Button, ButtonGroup } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faList, faEdit, faTrash, faEye } from '@fortawesome/free-solid-svg-icons'
+import MyToast from './MyToast';
 import axios from 'axios';
 
 
@@ -34,10 +35,13 @@ export default class RecordList extends Component{
             axios.delete("http://localhost:8080/record/delete/"+recordId)
             .then(response => {
                 if(response.data != null){
-                    alert("sala została usunięta.");
+                    this.setState({"show":true});
+                    setTimeout(() => this.setState({"show":false}), 3000)
                     this.setState({
                         records: this.state.records.filter(record => record.id !== recordId)
                     });
+                }else{
+                    this.setState({"show":false});
                 }
             });
 
@@ -45,7 +49,12 @@ export default class RecordList extends Component{
 
     render(){
         return(
-                    <Table float left striped bordered hover variant="dark">                        
+            <div>
+                
+                <div style={{"display":this.state.show ? "block": "none"}}>
+                    <MyToast children = {{show:this.state.show, message:"Sala została usunięta.", type:"danger"}}/>
+                </div>
+                <Table float left striped bordered hover variant="dark">                        
                     <thead>
                     <tr align="left">
                                <td colSpan="12"><FontAwesomeIcon icon={faList}/> Lista sal</td>
@@ -94,6 +103,8 @@ export default class RecordList extends Component{
                             }
                         </tbody>
                     </Table>
+            </div>
+              
                                 
         );
     }

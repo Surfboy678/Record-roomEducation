@@ -74,7 +74,7 @@ export default class Record  extends Component{
         return(
             <div>
                 <div style={{"display":this.state.show ? "block": "none"}}>
-                    <MyToast children = {{show:this.state.show, message:"Sala została zapisana."}}/>
+                    <MyToast children = {{show:this.state.show, message:"Sala została zapisana.", type:"success"}}/>
                 </div>
                 <Card className={"border border-dark bg-dark text-white"}>
                 <Card.Header> <FontAwesomeIcon icon={faPlusSquare}/> Dodaj salę</Card.Header>
