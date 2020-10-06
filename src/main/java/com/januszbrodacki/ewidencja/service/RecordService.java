@@ -13,5 +13,7 @@ public interface RecordService {
 
     public Optional<Record> findRecordById(String id);
 
+    void deleteByIdRecord(String id);
+
 
 }

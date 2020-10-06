@@ -28,7 +28,20 @@ export default class RecordList extends Component{
                 this.setState({records: data});
             });
 
-        }
+        };
+
+        deleteRecord = (recordId) =>{
+            axios.delete("http://localhost:8080/record/delete/"+recordId)
+            .then(response => {
+                if(response.data != null){
+                    alert("sala została usunięta.");
+                    this.setState({
+                        records: this.state.records.filter(record => record.id !== recordId)
+                    });
+                }
+            });
+
+        };
 
     render(){
         return(
@@ -70,7 +83,7 @@ export default class RecordList extends Component{
                                        <ButtonGroup>
                                        <Button size="sm" variant="outline-info"><FontAwesomeIcon icon={faEye}/></Button>{' '}
                                            <Button size="sm" variant="outline-primary"><FontAwesomeIcon icon={faEdit}/></Button>{' '}
-                                           <Button size="sm" variant="outline-danger"><FontAwesomeIcon icon={faTrash}/></Button>
+                                           <Button size="sm" variant="outline-danger" onClick={this.deleteRecord.bind(this, record.id)}><FontAwesomeIcon icon={faTrash}/></Button>
                                           
                                        </ButtonGroup>
                                    </td>

@@ -42,5 +42,9 @@ public class RecordController {
     ResponseEntity<Record> updateRecord(@Validated @RequestBody Record record){
         return ResponseEntity.ok(recordServiceImpl.addNewRecord(record));
     }
+    @DeleteMapping("/delete/{id}")
+    public void deleteRecord(@PathVariable String id){
+        recordServiceImpl.deleteByIdRecord(id);
+    }
 
 }

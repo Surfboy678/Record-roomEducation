@@ -31,6 +31,10 @@ public class RecordServiceImpl implements RecordService {
         return recordRepository.findById(id);
     }
 
+    public void deleteByIdRecord(String id){
+        recordRepository.deleteById(id);
+    }
+
 
 
 
