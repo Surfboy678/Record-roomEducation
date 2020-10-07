@@ -23,7 +23,10 @@ export default class Record  extends Component{
    };
 
    componentDidMount(){
-       const id = +this.props.match.params.id;
+       const id = this.props.match.params.id;
+       console.log(id);
+       console.log(this.props.match.params);
+       
        if(id){
           this.findRecordById(id);
        }
@@ -32,6 +35,8 @@ export default class Record  extends Component{
    findRecordById = (id) => {
     axios.get("http://localhost:8080/record/"+id)
     .then(response =>{
+        console.log(response);
+        console.log(response.data);
         if(response.data != null){
             this.setState({
              id: response.data.id,   
@@ -50,6 +55,7 @@ export default class Record  extends Component{
              responseUnit: response.data.responseUnit,
              comments: response.data.comments
             });
+            
 
         }
 
