@@ -44,7 +44,10 @@ public class RecordController {
     }
     @DeleteMapping("/delete/{id}")
     public void deleteRecord(@PathVariable String id){
-        recordServiceImpl.deleteByIdRecord(id);
+        if(recordServiceImpl.findRecordById(id) != null){
+            recordServiceImpl.deleteByIdRecord(id);
+        }
+
     }
 
 }

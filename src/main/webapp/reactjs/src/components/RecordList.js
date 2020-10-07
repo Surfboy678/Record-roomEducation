@@ -3,6 +3,7 @@ import { Table, Button, ButtonGroup } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faList, faEdit, faTrash, faEye } from '@fortawesome/free-solid-svg-icons'
 import MyToast from './MyToast';
+import {Link} from 'react-router-dom';
 import axios from 'axios';
 
 
@@ -52,7 +53,7 @@ export default class RecordList extends Component{
             <div>
                 
                 <div style={{"display":this.state.show ? "block": "none"}}>
-                    <MyToast children = {{show:this.state.show, message:"Sala została usunięta.", type:"danger"}}/>
+                    <MyToast show= {this.state.show} message= {"Sala została usunięta."} type = {"danger"}/>
                 </div>
                 <Table float left striped bordered hover variant="dark">                        
                     <thead>
@@ -90,10 +91,10 @@ export default class RecordList extends Component{
                                    <td>{record.numberOfTraditionalProjectors}</td>
                                    <td>
                                        <ButtonGroup>
+                                       <Link to={"edit/"+record.id} className= "btn btn-sm btn-outline-primary"><FontAwesomeIcon icon={faEdit}/></Link>
                                        <Button size="sm" variant="outline-info"><FontAwesomeIcon icon={faEye}/></Button>{' '}
-                                           <Button size="sm" variant="outline-primary"><FontAwesomeIcon icon={faEdit}/></Button>{' '}
+                                           
                                            <Button size="sm" variant="outline-danger" onClick={this.deleteRecord.bind(this, record.id)}><FontAwesomeIcon icon={faTrash}/></Button>
-                                          
                                        </ButtonGroup>
                                    </td>
 

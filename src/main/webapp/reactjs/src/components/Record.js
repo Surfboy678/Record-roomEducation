@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Card, Form, Button, Col} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlusSquare, faSave, faUndo } from '@fortawesome/free-solid-svg-icons'
+import { faPlusSquare, faSave, faUndo, faList } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios';
 import MyToast from './MyToast';
 
@@ -13,18 +13,57 @@ export default class Record  extends Component{
        this.state.show = false;
        this.recordChange = this.recordChange.bind(this);
        this.submitRecord = this.submitRecord.bind(this);
-   }
+   };
 
    initialState = {
-    nameBuilding:'',roomNumber:'' ,personResponsible:'', numberOfSeat: '', typeRoom:'',
+    id:'', nameBuilding:'',roomNumber:'' ,personResponsible:'', numberOfSeat: '', typeRoom:'',
     numberOfComputer: '', numberOfBoard: '', numberOfMultimediaProjectors: '', formGridNumberOfTraditionalProjectors: '',
       authorizeToBook: '', referenceCode: '', cardCode: '', responseUnit: '', comments: ''
 
+   };
+
+   componentDidMount(){
+       const id = +this.props.match.params.id;
+       if(id){
+          this.findRecordById(id);
+       }
    }
 
+   findRecordById = (id) => {
+    axios.get("http://localhost:8080/record/"+id)
+    .then(response =>{
+        if(response.data != null){
+            this.setState({
+             id: response.data.id,   
+             nameBuilding: response.data.nameBuilding,
+             roomNumber: response.data.roomNumber,
+             personResponsible: response.data.personResponsible,
+             numberOfSeat: response.data.numberOfSeat,
+             typeRoom: response.data.typeRoom,
+             numberOfComputer: response.data.numberOfComputer,
+             numberOfBoard: response.data.numberOfBoard,
+             numberOfMultimediaProjectors: response.data.numberOfMultimediaProjectors,
+             numberOfTraditionalProjectors: response.data.numberOfTraditionalProjectors,
+             authorizeToBook: response.data.authorizeToBook,
+             referenceCode: response.data.referenceCode,
+             cardCode: response.data.cardCode,
+             responseUnit: response.data.responseUnit,
+             comments: response.data.comments
+            });
+
+        }
+
+    }).catch((error) => {
+        console.error("Error -" + error);
+
+    });
+       
+   }
+
+  
    resetRecord = () =>{
        this.setState(() => this.initialState);
-   }
+   };
 
    submitRecord = event =>{
        event.preventDefault();
@@ -57,14 +96,18 @@ export default class Record  extends Component{
                     }
                 });
                 this.setState(this.initialState);
-            }
+            };
    
 
    recordChange = event =>{
        this.setState({
            [event.target.name]:event.target.value
        });
-   }
+   };
+
+   recordList = () =>{
+       return this.props.history.push("/list")
+   };
 
     render() {
         const {nameBuilding, roomNumber, personResponsible, numberOfSeat, typeRoom,
@@ -74,7 +117,7 @@ export default class Record  extends Component{
         return(
             <div>
                 <div style={{"display":this.state.show ? "block": "none"}}>
-                    <MyToast children = {{show:this.state.show, message:"Sala została zapisana.", type:"success"}}/>
+                    <MyToast show = {this.state.show} message= {"Sala została zapisana."} type={"success"}/>
                 </div>
                 <Card className={"border border-dark bg-dark text-white"}>
                 <Card.Header> <FontAwesomeIcon icon={faPlusSquare}/> Dodaj salę</Card.Header>
@@ -211,6 +254,9 @@ export default class Record  extends Component{
                     </Button>{' '}
                     <Button size="sm" variant="info" type="reset">
                 <FontAwesomeIcon icon={faUndo}/> Wyczyść
+                    </Button>{' '}
+                    <Button size="sm" variant="info" type="button" onClick={this.recordList.bind()} >
+                <FontAwesomeIcon icon={faList}/>Lista sal
                     </Button>
                 </Card.Footer>
                 </Form>
