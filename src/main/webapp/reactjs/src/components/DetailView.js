@@ -196,7 +196,7 @@ export default class DetailView extends Component{
                     </Form.Row>
                     <Form.Row>
                     <Form.Group as={Col} controlId="formGridComments">
-                    <Form.Label>uwagi ogólne</Form.Label>
+                    <Form.Label>uwagi dodatkowe</Form.Label>
                     <Form.Control readOnly
                     type="text" name="comments"
                     value={comments} onChange={this.recordChange}

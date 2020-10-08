@@ -280,12 +280,12 @@ export default class Record  extends Component{
                         </Form.Row>
                         <Form.Row>
                         <Form.Group as={Col} controlId="formGridComments">
-                        <Form.Label>uwagi ogólne</Form.Label>
+                        <Form.Label>uwagi dodatkowe</Form.Label>
                         <Form.Control autoComplete="off"
                         type="text" name="comments"
                         value={comments} onChange={this.recordChange}
                         className = {"bg-dark text-white"}
-                        placeholder="uwagi ogólne"/>
+                        placeholder="uwagi dodatkowe"/>
                     </Form.Group>
                         </Form.Row>
                 </Card.Body>
