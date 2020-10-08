@@ -26,8 +26,7 @@ export default class Record  extends Component{
        const id = this.props.match.params.id;
        console.log(id);
        console.log(this.props.match.params);
-       
-       if(id){
+              if(id){
           this.findRecordById(id);
        }
    }
@@ -95,7 +94,7 @@ export default class Record  extends Component{
           axios.post("http://localhost:8080/record/add", record)
                 .then(response => {
                     if(response.data != null){
-                       this.setState({"show":true});
+                       this.setState({"show":true, "method": "post"});
                        setTimeout(() => this.setState({"show":false}), 3000)                      
                     }else{
                         this.setState({"show":false});
@@ -129,7 +128,7 @@ export default class Record  extends Component{
           axios.put("http://localhost:8080/record/update", record)
                 .then(response => {
                     if(response.data != null){
-                       this.setState({"show":true});
+                       this.setState({"show":true, "method": "put"});
                        setTimeout(() => this.setState({"show":false}), 3000);
                        setTimeout(() => this.recordList(), 3000);                      
                     }else{
@@ -159,7 +158,7 @@ export default class Record  extends Component{
         return(
             <div>
                 <div style={{"display":this.state.show ? "block": "none"}}>
-                    <MyToast show = {this.state.show} message= {"Sala została zapisana."} type={"success"}/>
+                    <MyToast show = {this.state.show} message= {this.state.method === "put" ? "Sala została uaktualniona." : "Sala została zapisana."} type={"success"}/>
                 </div>
                 <Card className={"border border-dark bg-dark text-white"}>
                 <Card.Header> <FontAwesomeIcon icon={this.state.id ? faEdit : faPlusSquare}/>{this.state.id ? " Zmień" : " Dodaj salę"} </Card.Header>
@@ -177,7 +176,7 @@ export default class Record  extends Component{
                     <Form.Group as={Col} controlId="formGridRoomNumber">
                         <Form.Label>Nr.Pomieszczenia</Form.Label>
                         <Form.Control required autoComplete="off"
-                        type="number" name="roomNumber"
+                        type="text" name="roomNumber"
                         value={roomNumber} onChange={this.recordChange}
                         className = {"bg-dark text-white"}
                         placeholder="nr.Pomieszczenia"/>

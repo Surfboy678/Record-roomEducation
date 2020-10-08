@@ -92,7 +92,7 @@ export default class RecordList extends Component{
                                    <td>
                                        <ButtonGroup>
                                        <Link to={"edit/"+record.id} className= "btn btn-sm btn-outline-primary"><FontAwesomeIcon icon={faEdit}/></Link>
-                                       <Button size="sm" variant="outline-info"><FontAwesomeIcon icon={faEye}/></Button>{' '}
+                                       <Link to={"details/"+record.id} className= "btn btn-sm btn-outline-info"><FontAwesomeIcon icon={faEye}/></Link>{' '}
                                            
                                            <Button size="sm" variant="outline-danger" onClick={this.deleteRecord.bind(this, record.id)}><FontAwesomeIcon icon={faTrash}/></Button>
                                        </ButtonGroup>
