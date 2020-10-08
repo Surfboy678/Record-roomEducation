@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Card, Form, Button, Col} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlusSquare, faSave, faUndo, faList } from '@fortawesome/free-solid-svg-icons'
+import { faPlusSquare, faSave, faUndo, faList, faEdit } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios';
 import MyToast from './MyToast';
 
@@ -103,6 +103,42 @@ export default class Record  extends Component{
                 });
                 this.setState(this.initialState);
             };
+
+            updateRecord = event => {
+                event.preventDefault();
+
+       const record = {
+           id: this.state.id,
+           nameBuilding: this.state.nameBuilding,
+           roomNumber: this.state.roomNumber,
+           personResponsible: this.state.personResponsible,
+           numberOfSeat: this.state.numberOfSeat,
+           typeRoom: this.state.typeRoom,
+           numberOfComputer: this.state.numberOfComputer,
+           numberOfBoard: this.state.numberOfBoard,
+           numberOfMultimediaProjectors: this.state.numberOfMultimediaProjectors,
+           numberOfTraditionalProjectors: this.state.numberOfTraditionalProjectors,
+           authorizeToBook: this.state.authorizeToBook,
+           referenceCode: this.state.referenceCode,
+           cardCode: this.state.cardCode,
+           responseUnit: this.state.responseUnit,
+           comments: this.state.comments
+          };
+        
+
+          axios.put("http://localhost:8080/record/update", record)
+                .then(response => {
+                    if(response.data != null){
+                       this.setState({"show":true});
+                       setTimeout(() => this.setState({"show":false}), 3000);
+                       setTimeout(() => this.recordList(), 3000);                      
+                    }else{
+                        this.setState({"show":false});
+                    }
+                });
+                this.setState(this.initialState);
+
+            };         
    
 
    recordChange = event =>{
@@ -126,8 +162,8 @@ export default class Record  extends Component{
                     <MyToast show = {this.state.show} message= {"Sala została zapisana."} type={"success"}/>
                 </div>
                 <Card className={"border border-dark bg-dark text-white"}>
-                <Card.Header> <FontAwesomeIcon icon={faPlusSquare}/> Dodaj salę</Card.Header>
-                <Form onReset={this.resetRecord} onSubmit={this.submitRecord} id = "recordFormId">
+                <Card.Header> <FontAwesomeIcon icon={this.state.id ? faEdit : faPlusSquare}/>{this.state.id ? " Zmień" : " Dodaj salę"} </Card.Header>
+                <Form onReset={this.resetRecord} onSubmit={this.state.id ? this.updateRecord : this.submitRecord} id = "recordFormId">
                 <Card.Body>
                     <Form.Row>
                     <Form.Group as={Col} controlId="formGridNameBuilding">
@@ -250,13 +286,13 @@ export default class Record  extends Component{
                         type="text" name="comments"
                         value={comments} onChange={this.recordChange}
                         className = {"bg-dark text-white"}
-                        placeholder="uwagi ogólne" />
+                        placeholder="uwagi ogólne"/>
                     </Form.Group>
                         </Form.Row>
                 </Card.Body>
                 <Card.Footer style={{"textAlign":"right"}}>
                 <Button size="sm" variant="success" type="submit">
-                <FontAwesomeIcon icon={faSave}/> Zapisz
+                <FontAwesomeIcon icon={faSave}/>{this.state.id ? " Zmień" : " Zapisz"} 
                     </Button>{' '}
                     <Button size="sm" variant="info" type="reset">
                 <FontAwesomeIcon icon={faUndo}/> Wyczyść
