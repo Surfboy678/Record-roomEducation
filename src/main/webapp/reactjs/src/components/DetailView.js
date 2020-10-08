@@ -92,7 +92,7 @@ export default class DetailView extends Component{
                 <Form.Group as={Col} controlId="formGridRoomNumber">
                     <Form.Label>Nr.Pomieszczenia</Form.Label>
                     <Form.Control readOnly
-                    type="number" name="roomNumber"
+                    type="text" name="roomNumber"
                     value={roomNumber} onChange={this.recordChange}
                     className = {"bg-dark text-white"}
                     />
