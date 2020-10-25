@@ -27,11 +27,11 @@ public class RecordServiceImpl implements RecordService {
         return recordRepository.findAll();
     }
 
-    public Optional<Record> findRecordById(String id){
+    public Optional<Record> findRecordById(Integer id){
         return recordRepository.findById(id);
     }
 
-    public void deleteByIdRecord(String id){
+    public void deleteByIdRecord(Integer id){
         recordRepository.deleteById(id);
     }
 

@@ -7,13 +7,11 @@ import java.util.Optional;
 
 public interface RecordService {
 
-    public Record addNewRecord(Record record);
+  Record addNewRecord(Record record);
 
-    public List <Record> findAllRecords();
+  List<Record> findAllRecords();
 
-    public Optional<Record> findRecordById(String id);
+  Optional<Record> findRecordById(Integer id);
 
-    void deleteByIdRecord(String id);
-
-
+  void deleteByIdRecord(Integer id);
 }

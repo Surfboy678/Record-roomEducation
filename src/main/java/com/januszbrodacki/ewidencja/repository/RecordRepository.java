@@ -1,11 +1,12 @@
 package com.januszbrodacki.ewidencja.repository;
 
 import com.januszbrodacki.ewidencja.model.Record;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RecordRepository extends MongoRepository<Record, String> {
+public interface RecordRepository extends JpaRepository<Record, Integer> {
 
-    void deleteById(String is);
+    void deleteById(Integer id);
 }

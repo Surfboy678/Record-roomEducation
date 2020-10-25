@@ -1,50 +1,38 @@
 package com.januszbrodacki.ewidencja.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
+import javax.persistence.*;
+
+@Entity
+@Table(name = "records")
 public class Record {
-    @Id
-    String id;
-    String nameBuilding;
-    String roomNumber;
-    String personResponsible;
-    Integer numberOfSeat;
-    String typeRoom;
-    Integer numberOfComputer;
-    Integer numberOfBoard;
-    Integer numberOfMultimediaProjectors;
-    Integer numberOfTraditionalProjectors;
-    String authorizeToBook;
-    String referenceCode;
-    String cardCode;
-    String responseUnit;
-    String comments;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  Integer id;
+  String nameBuilding;
+  String roomNumber;
+  String personResponsible;
+  Integer numberOfSeat;
+  String typeRoom;
+  Integer numberOfComputer;
+  Integer numberOfBoard;
+  Integer numberOfMultimediaProjectors;
+  Integer numberOfTraditionalProjectors;
+  String authorizeToBook;
+  String referenceCode;
+  String cardCode;
+  String responseUnit;
+  String comments;
 
-    public Record(String id, String nameBuilding, String roomNumber, String personResponsible, Integer numberOfSeat, String typeRoom, Integer numberOfComputer, Integer numberOfBoard, Integer numberOfMultimediaProjectors, Integer numberOfTraditionalProjectors, String authorizeToBook, String referenceCode, String cardCode, String responseUnit, String comments) {
-        this.id = id;
-        this.nameBuilding = nameBuilding;
-        this.roomNumber = roomNumber;
-        this.personResponsible = personResponsible;
-        this.numberOfSeat = numberOfSeat;
-        this.typeRoom = typeRoom;
-        this.numberOfComputer = numberOfComputer;
-        this.numberOfBoard = numberOfBoard;
-        this.numberOfMultimediaProjectors = numberOfMultimediaProjectors;
-        this.numberOfTraditionalProjectors = numberOfTraditionalProjectors;
-        this.authorizeToBook = authorizeToBook;
-        this.referenceCode = referenceCode;
-        this.cardCode = cardCode;
-        this.responseUnit = responseUnit;
-        this.comments = comments;
+    public Record() {
+        
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
