@@ -22,7 +22,7 @@ export default class RecordList extends Component {
     }
 
     findAllRecords() {
-        axios.get("http://localhost:8080/record/list")
+        axios.get("https://creepy-spell-42189.herokuapp.com/record/list")
             .then(response => response.data)
             .then((data) => {
                 this.setState({records: data});
@@ -31,7 +31,7 @@ export default class RecordList extends Component {
     };
 
     deleteRecord = (recordId) => {
-        axios.delete("http://localhost:8080/record/delete/" + recordId)
+        axios.delete(" https://creepy-spell-42189.herokuapp.com/record/delete/" + recordId)
             .then(response => {
                 if (response.data != null) {
                     this.setState({"show": true});

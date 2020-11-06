@@ -41,7 +41,7 @@ export default class DetailView extends Component {
     }
 
     findRecordById = (id) => {
-        axios.get("http://localhost:8080/record/" + id)
+        axios.get(" https://creepy-spell-42189.herokuapp.com/record/" + id)
             .then(response => {
                 console.log(response);
                 console.log(response.data);
