@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RequestMapping("/record")
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 public class RecordController {
 
   private static final Logger logger = LoggerFactory.getLogger("RECORDS");
