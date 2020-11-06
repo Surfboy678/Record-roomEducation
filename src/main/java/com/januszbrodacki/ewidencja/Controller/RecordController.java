@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RequestMapping("/record")
 @RestController
-@CrossOrigin(origins = "https://surfboy678.github.io")
+@CrossOrigin
 public class RecordController {
 
   private static final Logger logger = LoggerFactory.getLogger("RECORDS");
