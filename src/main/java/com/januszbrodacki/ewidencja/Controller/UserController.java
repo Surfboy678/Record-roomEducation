@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -33,6 +34,11 @@ public class UserController {
     public String confirmationByEmail(@RequestParam String token) {
         userService.verifyToken(token);
         return "Gratulacje.Twój adres mailowy został potwierdzony";
+    }
+
+    @GetMapping("/allUsers")
+    public List<User> getAllUsers(){
+        return userService.getUserWithRole();
     }
 }
 

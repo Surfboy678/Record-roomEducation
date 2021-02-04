@@ -53,6 +53,7 @@ public class webSecurityConfig extends WebSecurityConfigurerAdapter {
               .hasRole("USER")
               .antMatchers("/record/add")
               .hasRole("USER")
+              .antMatchers("/allUsers").permitAll()
               .antMatchers("/register")
               .permitAll()
               .antMatchers("/verify-token")

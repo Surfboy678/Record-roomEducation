@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -76,6 +77,11 @@ public class UserService {
         userRepository.save(user);
         Integer idVerificationToken = verificationTokenRepository.findByValue(token).getId();
         verificationTokenRepository.deleteById(idVerificationToken);
+    }
+
+    public List<User> getUserWithRole(){
+        List<User> allUser = userRepository.findAll();
+        return allUser;
     }
 }
 
