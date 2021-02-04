@@ -1,9 +1,12 @@
 package com.januszbrodacki.ewidencja.service;
 
+import com.januszbrodacki.ewidencja.dto.UserDto;
+import com.januszbrodacki.ewidencja.mapper.Mapper;
 import com.januszbrodacki.ewidencja.model.User;
 import com.januszbrodacki.ewidencja.model.VerificationToken;
 import com.januszbrodacki.ewidencja.repository.UserRepository;
 import com.januszbrodacki.ewidencja.repository.VerificationTokenRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,6 +15,7 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -28,16 +32,14 @@ public class UserService {
 
     private MailSenderService mailSenderService;
 
-    @Autowired
-    public UserService(
-            PasswordEncoder passwordEncoder,
-            UserRepository userRepository,
-            VerificationTokenRepository verificationTokenRepository,
-            MailSenderService mailSenderService) {
+    private Mapper mapper;
+
+    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, VerificationTokenRepository verificationTokenRepository, MailSenderService mailSenderService, Mapper mapper) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.verificationTokenRepository = verificationTokenRepository;
         this.mailSenderService = mailSenderService;
+        this.mapper = mapper;
     }
 
     public void addNewUser(User user, HttpServletRequest request) {
@@ -79,9 +81,11 @@ public class UserService {
         verificationTokenRepository.deleteById(idVerificationToken);
     }
 
-    public List<User> getUserWithRole(){
-        List<User> allUser = userRepository.findAll();
-        return allUser;
+    public List<UserDto> getUsersListWithRole(){
+      List<UserDto> userDto = userRepository.findAll().stream()
+              .map(user -> mapper.getModelMapper().map(user, UserDto.class))
+              .collect(Collectors.toList());
+    return userDto;
     }
 }
 

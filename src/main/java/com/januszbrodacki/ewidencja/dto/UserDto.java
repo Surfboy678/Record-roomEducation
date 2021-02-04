@@ -1,10 +1,12 @@
 package com.januszbrodacki.ewidencja.dto;
 
-public class UserDto {
+import java.util.List;
 
-    String username;
+public class UserDto  {
 
-    String role;
+   private String username;
+
+   private String role;
 
     public String getUsername() {
         return username;

@@ -1,5 +1,6 @@
 package com.januszbrodacki.ewidencja.Controller;
 
+import com.januszbrodacki.ewidencja.dto.UserDto;
 import com.januszbrodacki.ewidencja.model.User;
 import com.januszbrodacki.ewidencja.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,8 @@ public class UserController {
     }
 
     @GetMapping("/allUsers")
-    public List<User> getAllUsers(){
-        return userService.getUserWithRole();
+    public List<UserDto> getAllUsers(){
+        return userService.getUsersListWithRole();
     }
 }
 
