@@ -22,7 +22,7 @@ export default class RecordList extends Component {
     }
 
     findAllRecords() {
-        axios.get("https://creepy-spell-42189.herokuapp.com/record/list")
+        axios.get("http://localhost:8080/record/list")
             .then(response => response.data)
             .then((data) => {
                 this.setState({records: data});

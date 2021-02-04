@@ -103,7 +103,7 @@ export default class Record extends Component {
         };
 
 
-        axios.post(" https://creepy-spell-42189.herokuapp.com/record/add", record)
+        axios.post("http://localhost:8080/record/add", record)
             .then(response => {
                 if (response.data != null) {
                     this.setState({"show": true, "method": "post"});
