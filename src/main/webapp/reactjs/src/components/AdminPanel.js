@@ -44,7 +44,7 @@ class AdminPanel extends Component {
                     <th>Lp.</th>
                         <th>username</th>
                         <th>rola</th>
-                        <th>aktywne konto</th>
+                        <th>konto</th>
                         <th>Akcja</th>
                     </tr>
                     </thead>
@@ -57,8 +57,8 @@ class AdminPanel extends Component {
                             <tr key={user.id}>
                                 <td>{user.id}</td>
                                 <td>{user.username}</td>
-                                <td>{user.role}</td>
-                                <td>{user.enabled}</td>
+                                <td>{user.role === "ROLE_USER" ? "USER" : "ADMIN"}</td>
+                                <td>{user.enabled === true ? "aktywne" : "nieaktywne"}</td>
                                 <td>
                                     <ButtonGroup>
                                     <Link to={"editUser/" + user.id}
