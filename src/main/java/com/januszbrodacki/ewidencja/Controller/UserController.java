@@ -14,32 +14,31 @@ import java.util.List;
 @RestController
 public class UserController {
 
-    private UserService userService;
+  private UserService userService;
 
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+  @Autowired
+  public UserController(UserService userService) {
+    this.userService = userService;
+  }
 
-    @PostMapping("/login")
-    public ResponseEntity<User> loginUser(@RequestBody User user) {
-        return ResponseEntity.ok(user);
-    }
+  @PostMapping("/login")
+  public ResponseEntity<User> loginUser(@RequestBody User user) {
+    return ResponseEntity.ok(user);
+  }
 
-    @PostMapping("/register")
-    public void registerUser(@RequestBody User user, HttpServletRequest request) {
-        userService.addNewUser(user, request);
-    }
+  @PostMapping("/register")
+  public void registerUser(@RequestBody User user, HttpServletRequest request) {
+    userService.addNewUser(user, request);
+  }
 
-    @RequestMapping("/verify-token")
-    public String confirmationByEmail(@RequestParam String token) {
-        userService.verifyToken(token);
-        return "Gratulacje.Twój adres mailowy został potwierdzony";
-    }
+  @RequestMapping("/verify-token")
+  public String confirmationByEmail(@RequestParam String token) {
+    userService.verifyToken(token);
+    return "Gratulacje.Twój adres mailowy został potwierdzony";
+  }
 
-    @GetMapping("/allUsers")
-    public List<UserDto> getAllUsers(){
-        return userService.getUsersListWithRole();
-    }
+  @GetMapping("/allUsers")
+  public List<UserDto> getAllUsers() {
+    return userService.getUsersListWithRole();
+  }
 }
-

@@ -8,23 +8,22 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Test {
-    private String ROLE_USER = "ROLE_USER";
+  private String ROLE_USER = "ROLE_USER";
 
-    private PasswordEncoder passwordEncoder;
+  private PasswordEncoder passwordEncoder;
 
-    private UserRepository userRepository;
+  private UserRepository userRepository;
 
-    @Autowired
-    public Test(PasswordEncoder passwordEncoder, UserRepository userRepository) {
-        this.passwordEncoder = passwordEncoder;
-        this.userRepository = userRepository;
+  @Autowired
+  public Test(PasswordEncoder passwordEncoder, UserRepository userRepository) {
+    this.passwordEncoder = passwordEncoder;
+    this.userRepository = userRepository;
 
-        User user = new User();
-        user.setUsername("Janusz");
-        user.setPassword(passwordEncoder.encode("Janusz123"));
-        user.setRole(ROLE_USER);
-        user.setEnabled(true);
-        userRepository.save(user);
-    }
+    User user = new User();
+    user.setUsername("Janusz");
+    user.setPassword(passwordEncoder.encode("Janusz123"));
+    user.setRole(ROLE_USER);
+    user.setEnabled(true);
+    userRepository.save(user);
+  }
 }
-

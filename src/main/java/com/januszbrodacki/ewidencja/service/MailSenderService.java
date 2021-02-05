@@ -11,21 +11,20 @@ import javax.mail.internet.MimeMessage;
 @Service
 public class MailSenderService {
 
-    private JavaMailSender javaMailSender;
+  private JavaMailSender javaMailSender;
 
-    @Autowired
-    public MailSenderService(JavaMailSender javaMailSender) {
-        this.javaMailSender = javaMailSender;
-    }
+  @Autowired
+  public MailSenderService(JavaMailSender javaMailSender) {
+    this.javaMailSender = javaMailSender;
+  }
 
-
-    public void sendMail(String to, String subject, String text, boolean isHtmlContent)
-            throws MessagingException {
-        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
-        mimeMessageHelper.setTo(to);
-        mimeMessageHelper.setSubject(subject);
-        mimeMessageHelper.setText(text, isHtmlContent);
-        javaMailSender.send(mimeMessage);
-    }
+  public void sendMail(String to, String subject, String text, boolean isHtmlContent)
+      throws MessagingException {
+    MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+    MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+    mimeMessageHelper.setTo(to);
+    mimeMessageHelper.setSubject(subject);
+    mimeMessageHelper.setText(text, isHtmlContent);
+    javaMailSender.send(mimeMessage);
+  }
 }

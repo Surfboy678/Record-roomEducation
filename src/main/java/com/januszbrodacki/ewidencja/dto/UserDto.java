@@ -1,6 +1,5 @@
 package com.januszbrodacki.ewidencja.dto;
 
-
 public class UserDto {
 
   private Integer id;
@@ -11,36 +10,35 @@ public class UserDto {
 
   private boolean isEnabled;
 
-    public Integer getId() {
-        return id;
-    }
+  public Integer getId() {
+    return id;
+  }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-    public String getUsername() {
-        return username;
-    }
+  public String getUsername() {
+    return username;
+  }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
-    public String getRole() {
-        return role;
-    }
+  public String getRole() {
+    return role;
+  }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
+  public void setRole(String role) {
+    this.role = role;
+  }
 
-    public boolean isEnabled() {
-        return isEnabled;
-    }
+  public boolean isEnabled() {
+    return isEnabled;
+  }
 
-    public void setEnabled(boolean enabled) {
-        isEnabled = enabled;
-    }
+  public void setEnabled(boolean enabled) {
+    isEnabled = enabled;
+  }
 }
-

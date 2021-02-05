@@ -16,62 +16,68 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class webSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private RestAuthenticationFailureHandler authenticationFailureHandler;
+  private RestAuthenticationFailureHandler authenticationFailureHandler;
 
-    private RestAuthenticationSuccessHandler authenticationSuccessHandler;
+  private RestAuthenticationSuccessHandler authenticationSuccessHandler;
 
-    private UserDetailsService userDetailsService;
+  private UserDetailsService userDetailsService;
 
-    @Bean
-    public PasswordEncoder getPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+  @Bean
+  public PasswordEncoder getPasswordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 
-    @Autowired
-    public webSecurityConfig(RestAuthenticationFailureHandler authenticationFailureHandler, RestAuthenticationSuccessHandler authenticationSuccessHandler, UserDetailsService userDetailsService) {
-        this.authenticationFailureHandler = authenticationFailureHandler;
-        this.authenticationSuccessHandler = authenticationSuccessHandler;
-        this.userDetailsService = userDetailsService;
-    }
+  @Autowired
+  public webSecurityConfig(
+      RestAuthenticationFailureHandler authenticationFailureHandler,
+      RestAuthenticationSuccessHandler authenticationSuccessHandler,
+      UserDetailsService userDetailsService) {
+    this.authenticationFailureHandler = authenticationFailureHandler;
+    this.authenticationSuccessHandler = authenticationSuccessHandler;
+    this.userDetailsService = userDetailsService;
+  }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+  @Override
+  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        auth.userDetailsService(userDetailsService);
-    }
+    auth.userDetailsService(userDetailsService);
+  }
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-      http.cors()
-              .and()
-              .csrf()
-              .disable()
-              .authorizeRequests()
-              // .antMatchers("/forAdmin")
-              // .hasRole("ADMIN")
-              .antMatchers("/record/list").permitAll()
-              //.hasRole("USER")
-              .antMatchers("/record/add").permitAll()
-              //.hasRole("USER")
-              .antMatchers("/allUsers").permitAll()
-              .antMatchers("/register")
-              .permitAll()
-              .antMatchers("/verify-token")
-              .permitAll()
-              .anyRequest()
-              .authenticated()
-              .and()
-              .addFilterBefore(authenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-              .exceptionHandling()
-              .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
+    http.cors()
+        .and()
+        .csrf()
+        .disable()
+        .authorizeRequests()
+        // .antMatchers("/forAdmin")
+        // .hasRole("ADMIN")
+        .antMatchers("/record/list")
+        .permitAll()
+        // .hasRole("USER")
+        .antMatchers("/record/add")
+        .permitAll()
+        // .hasRole("USER")
+        .antMatchers("/allUsers")
+        .permitAll()
+        .antMatchers("/register")
+        .permitAll()
+        .antMatchers("/verify-token")
+        .permitAll()
+        .anyRequest()
+        .authenticated()
+        .and()
+        .addFilterBefore(authenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+        .exceptionHandling()
+        .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
   }
 
-    @Bean
-    public JsonObjectAuthenticationFilter authenticationFilter() throws Exception {
-        JsonObjectAuthenticationFilter filter = new JsonObjectAuthenticationFilter();
-        filter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
-        filter.setAuthenticationFailureHandler(authenticationFailureHandler);
-        filter.setAuthenticationManager(super.authenticationManager());
-        return filter;
-    }
+  @Bean
+  public JsonObjectAuthenticationFilter authenticationFilter() throws Exception {
+    JsonObjectAuthenticationFilter filter = new JsonObjectAuthenticationFilter();
+    filter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
+    filter.setAuthenticationFailureHandler(authenticationFailureHandler);
+    filter.setAuthenticationManager(super.authenticationManager());
+    return filter;
+  }
 }

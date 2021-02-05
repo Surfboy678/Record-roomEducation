@@ -13,25 +13,26 @@ import java.io.IOException;
 
 public class JsonObjectAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+  private final ObjectMapper objectMapper = new ObjectMapper();
 
-    @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) {
-        try {
-            BufferedReader reader = request.getReader();
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
-            }
-            User authRequest = objectMapper.readValue(sb.toString(), User.class);
-            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                    authRequest.getUsername(), authRequest.getPassword()
-            );
-            setDetails(request, token);
-            return this.getAuthenticationManager().authenticate(token);
-        } catch (IOException e) {
-            throw new IllegalArgumentException(e.getMessage());
-        }
+  @Override
+  public Authentication attemptAuthentication(
+      HttpServletRequest request, HttpServletResponse response) {
+    try {
+      BufferedReader reader = request.getReader();
+      StringBuilder sb = new StringBuilder();
+      String line;
+      while ((line = reader.readLine()) != null) {
+        sb.append(line);
+      }
+      User authRequest = objectMapper.readValue(sb.toString(), User.class);
+      UsernamePasswordAuthenticationToken token =
+          new UsernamePasswordAuthenticationToken(
+              authRequest.getUsername(), authRequest.getPassword());
+      setDetails(request, token);
+      return this.getAuthenticationManager().authenticate(token);
+    } catch (IOException e) {
+      throw new IllegalArgumentException(e.getMessage());
     }
+  }
 }

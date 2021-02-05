@@ -11,31 +11,27 @@ import java.util.Optional;
 @Service
 public class RecordServiceImpl implements RecordService {
 
-    private RecordRepository recordRepository;
+  private RecordRepository recordRepository;
 
-    @Autowired
-    public RecordServiceImpl(RecordRepository recordRepository) {
-        this.recordRepository = recordRepository;
-    }
+  @Autowired
+  public RecordServiceImpl(RecordRepository recordRepository) {
+    this.recordRepository = recordRepository;
+  }
 
-    public Record addNewRecord(Record record){
-        return recordRepository.save(record);
-    }
+  public Record addNewRecord(Record record) {
+    return recordRepository.save(record);
+  }
 
-    @Override
-    public List<Record> findAllRecords() {
-        return recordRepository.findAll();
-    }
+  @Override
+  public List<Record> findAllRecords() {
+    return recordRepository.findAll();
+  }
 
-    public Optional<Record> findRecordById(Integer id){
-        return recordRepository.findById(id);
-    }
+  public Optional<Record> findRecordById(Integer id) {
+    return recordRepository.findById(id);
+  }
 
-    public void deleteByIdRecord(Integer id){
-        recordRepository.deleteById(id);
-    }
-
-
-
-
+  public void deleteByIdRecord(Integer id) {
+    recordRepository.deleteById(id);
+  }
 }
