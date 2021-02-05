@@ -1,12 +1,23 @@
 package com.januszbrodacki.ewidencja.dto;
 
-import java.util.List;
 
-public class UserDto  {
+public class UserDto {
 
-   private String username;
+  private Integer id;
 
-   private String role;
+  private String username;
+
+  private String role;
+
+  private boolean isEnabled;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;
@@ -23,4 +34,13 @@ public class UserDto  {
     public void setRole(String role) {
         this.role = role;
     }
+
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
+    }
 }
+
