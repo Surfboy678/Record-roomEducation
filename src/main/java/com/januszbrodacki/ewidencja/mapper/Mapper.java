@@ -15,6 +15,7 @@ public class Mapper {
         new PropertyMap<User, UserDto>() {
           @Override
           protected void configure() {
+            map().setId(source.getId());
             map().setUsername(source.getUsername());
             map().setRole(source.getRole());
           }

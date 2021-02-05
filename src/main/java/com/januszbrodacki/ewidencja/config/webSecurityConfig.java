@@ -64,6 +64,7 @@ public class webSecurityConfig extends WebSecurityConfigurerAdapter {
         .permitAll()
         .antMatchers("/verify-token")
         .permitAll()
+            .antMatchers("/{id}").permitAll()
         .anyRequest()
         .authenticated()
         .and()

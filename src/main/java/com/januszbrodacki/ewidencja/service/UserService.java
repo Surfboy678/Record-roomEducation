@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -89,5 +90,11 @@ public class UserService {
             .map(user -> mapper.getModelMapper().map(user, UserDto.class))
             .collect(Collectors.toList());
     return userDto;
+  }
+
+  public Optional<UserDto> findUserById(Integer id) {
+    return userRepository
+        .findById(id)
+        .map(user -> mapper.getModelMapper().map(user, UserDto.class));
   }
 }

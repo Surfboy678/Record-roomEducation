@@ -41,4 +41,9 @@ public class UserController {
   public List<UserDto> getAllUsers() {
     return userService.getUsersListWithRole();
   }
+
+  @GetMapping("/{id}")
+  public @ResponseBody ResponseEntity getUserById(@PathVariable Integer id){
+    return ResponseEntity.ok(userService.findUserById(id));
+  }
 }
