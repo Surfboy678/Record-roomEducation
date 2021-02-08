@@ -44,7 +44,7 @@ export default class Record extends Component {
     }
 
     findRecordById = (id) => {
-        axios.get(" https://creepy-spell-42189.herokuapp.com/record/" + id)
+        axios.get("http://localhost:8080/record/" + id)
             .then(response => {
                 console.log(response);
                 console.log(response.data);
@@ -137,7 +137,7 @@ export default class Record extends Component {
         };
 
 
-        axios.put(" https://creepy-spell-42189.herokuapp.com/record/update", record)
+        axios.put("http://localhost:8080/record/update", record)
             .then(response => {
                 if (response.data != null) {
                     this.setState({"show": true, "method": "put"});

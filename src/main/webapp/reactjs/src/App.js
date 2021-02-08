@@ -7,6 +7,7 @@ import DetailView from './components/DetailView';
 import Register from './components/Register';
 import Login from './components/Login';
 import AdminPanel from './components/AdminPanel';
+import User from './components/User';
 import RecordList from './components/RecordList';
 import Footer from './components/Footer';
 import {Container, Row,  Col } from 'react-bootstrap';
@@ -31,8 +32,9 @@ function App() {
                   <Route path="/list" exact component ={RecordList}/>
                   <Route path="/register" exact component ={Register}/>
                   <Route path="/login" exact component ={Login}/>
-                  <Route path="/editUser" exact component ={Login}/>
+                  
                   <Route path="/adminPanel" exact component ={AdminPanel}/>
+                  <Route path="/editUser/:id" exact component ={User}/>
               </Switch>            
             </Col>
           </Row>
