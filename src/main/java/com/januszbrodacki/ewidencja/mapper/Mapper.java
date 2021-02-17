@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Mapper {
 
-  public ModelMapper getModelMapper() {
+  public ModelMapper UserToUserDto() {
     ModelMapper modelMapper = new ModelMapper();
     modelMapper.addMappings(
         new PropertyMap<User, UserDto>() {
@@ -21,5 +21,19 @@ public class Mapper {
           }
         });
     return modelMapper;
+  }
+
+  public ModelMapper UserDtoToUser(){
+      ModelMapper modelMapper = new ModelMapper();
+      modelMapper.addMappings(
+      new PropertyMap<UserDto, User>() {
+          @Override
+          protected void configure() {
+              map().setId(source.getId());
+              map().setUsername(source.getUsername());
+              map().setRole(source.getRole());
+          }
+      });
+        return modelMapper;
   }
 }

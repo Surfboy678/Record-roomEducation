@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Card, Form, Button, Col} from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faPlusSquare, faSave, faUndo, faList, faEdit} from '@fortawesome/free-solid-svg-icons'
+import {faPlusSquare, faSave,  faList, faEdit} from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios';
 import MyToast from './MyToast';
 
@@ -11,14 +11,13 @@ class User extends Component {
         this.state = this.initialState;
         this.state.show = false;
         this.userChange = this.userChange.bind(this);
-        this.submitUser = this.submitUser.bind(this);
+        this.updatetUser = this.updatetUser.bind(this);
     };
 
     initialState = {
         id: '',
         username: '',
-        role: '',
-        enabled: ''
+        role: ''
 
     };
 
@@ -41,7 +40,6 @@ class User extends Component {
                         id: response.data.id,
                         username: response.data.username,
                         role: response.data.role,
-                        enabled: response.data.enabled
                         
                     });
 
@@ -60,21 +58,23 @@ class User extends Component {
         this.setState(() => this.initialState);
     };
 
-    submitUser = event => {
+   
+
+    updatetUser = event => {
         event.preventDefault();
 
         const user = {
+            id: this.state.id,
             username: this.state.username,
-            role: this.state.role,
-            enebled: this.state.enabled
+            role: this.state.role
+            
         };
-
-
         
 
-
-        axios.put("http://localhost:8080/update", user)
+        axios.put("http://localhost:8080/update/" + user.id, user)
             .then(response => {
+                console.log(response)
+                console.log(response.data)
                 if (response.data != null) {
                     this.setState({"show": true, "method": "put"});
                     setTimeout(() => this.setState({"show": false}), 3000);
@@ -100,20 +100,20 @@ class User extends Component {
 
     render() {
         const {
-            username, role, enabled 
+            username, role
         } = this.state;
         return (
             <div>
                 <div style={{"display": this.state.show ? "block" : "none"}}>
                     <MyToast show={this.state.show}
-                             message={this.state.method === "put" ? "Sala została uaktualniona." : "Sala została zapisana."}
+                             message={this.state.method === "put" ? "Użytkownik został uaktualniony." : "Sala została zapisana."}
                              type={"success"}/>
                 </div>
                 <Card className={"border border-dark bg-dark text-white"}>
                     <Card.Header> <FontAwesomeIcon
                         icon={this.state.id ? faEdit : faPlusSquare}/>{this.state.id ? " Zmień" : " Dodaj salę"}
                     </Card.Header>
-                    <Form onReset={this.resetRecord} onSubmit={this.state.id ? this.updateRecord : this.submitUser}
+                    <Form onReset={this.resetUser} onSubmit={this.state.id ? this.updatetUser : this.submitUser}
                           id="recordFormId">
                         <Card.Body>
                             <Form.Row>
@@ -127,38 +127,26 @@ class User extends Component {
                                 </Form.Group>
                                 <Form.Group as={Col} controlId="formGridRole">
                                     <Form.Label>Rola</Form.Label>
-                                    <Form.Control required autoComplete="off"
-                                                  type="text" name="role"
-                                                  value={role === "ROLE_USER" ? "USER" : "ADMIN"} onChange={this.userChange}
+                                    <Form.Control as="select" 
+                                                  name="role"
+                                                  value ={role} onChange={this.userChange}
                                                   className={"bg-dark text-white"}
-                                                  placeholder="role"/>
+                                                  placeholder="role">
+                                                  <option value="ROLE_USER">USER</option>
+                                                <option value="ROLE_ADMIN">ADMIN</option>
+                                                </Form.Control>
                                 </Form.Group>
                             </Form.Row>
-                            <Form.Row>
-                                <Form.Group as={Col} controlId="formGridPersonResponsible">
-                                    <Form.Label>konto</Form.Label>
-                                    <Form.Control autoComplete="off"
-                                                  type="text" name="personResponsible"
-                                                  value={enabled === true ? "Aktywne" : "nie aktywne"} onChange={this.userChange}
-                                                  className={"bg-dark text-white"}
-                                                  placeholder="aktywność"/>
-                                </Form.Group>
-                               
-                            </Form.Row>
-                        </Card.Body>
-                        <Card.Footer style={{"textAlign": "right"}}>
-                            <Button size="sm" variant="success" type="submit">
-                                <FontAwesomeIcon icon={faSave}/> Zapisz
-                            </Button>{' '}
-                            <Button size="sm" variant="info" type="reset">
-                                <FontAwesomeIcon icon={faUndo}/> Wyczyść
-                            </Button>{' '}
-                            <Button size="sm" variant="info" type="button" onClick={this.userList.bind()}>
-                                <FontAwesomeIcon icon={faList}/>Lista użytkowników
-                            </Button>
-                        </Card.Footer>
-                    </Form>
-
+                                </Card.Body>
+                                <Card.Footer style={{"textAlign": "right"}}>
+                                    <Button size="sm" variant="success" type="submit">
+                                        <FontAwesomeIcon icon={faSave}/> Zapisz
+                                    </Button>{' '}
+                                    <Button size="sm" variant="info" type="button" onClick={this.userList.bind()}>
+                                        <FontAwesomeIcon icon={faList}/>Lista użytkowników
+                                    </Button>
+                                </Card.Footer>
+                            </Form>
                 </Card>
             </div>
 

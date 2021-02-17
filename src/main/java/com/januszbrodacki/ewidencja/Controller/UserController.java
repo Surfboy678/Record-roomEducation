@@ -8,8 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import java.util.List;
+;
 
+@Transactional
 @CrossOrigin
 @RestController
 public class UserController {
@@ -46,4 +49,13 @@ public class UserController {
   public @ResponseBody ResponseEntity getUserById(@PathVariable Integer id){
     return ResponseEntity.ok(userService.findUserById(id));
   }
+
+  @PutMapping("/update/{id}")
+  public void UpdateUser(@PathVariable Integer id, @RequestBody User user) {
+    userService.updateUser(id, user);
+    }
+
+
+
+
 }

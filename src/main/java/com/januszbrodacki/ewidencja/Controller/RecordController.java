@@ -47,6 +47,11 @@ public class RecordController {
     return ResponseEntity.ok(recordServiceImpl.addNewRecord(record));
   }
 
+  @PutMapping("/update/{id}")
+  public void newUpdateRecord(@PathVariable Integer id, @RequestBody Record record){
+    recordServiceImpl.updateRecord(id, record);
+  }
+
   @DeleteMapping("/delete/{id}")
   public void deleteRecord(@PathVariable Integer id) {
     if (recordServiceImpl.findRecordById(id) != null) {

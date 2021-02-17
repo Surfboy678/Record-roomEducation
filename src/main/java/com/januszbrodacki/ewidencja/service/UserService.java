@@ -87,14 +87,23 @@ public class UserService {
   public List<UserDto> getUsersListWithRole() {
     List<UserDto> userDto =
         userRepository.findAll().stream()
-            .map(user -> mapper.getModelMapper().map(user, UserDto.class))
+            .map(user -> mapper.UserToUserDto().map(user, UserDto.class))
             .collect(Collectors.toList());
     return userDto;
   }
 
   public Optional<UserDto> findUserById(Integer id) {
-    return userRepository
-        .findById(id)
-        .map(user -> mapper.getModelMapper().map(user, UserDto.class));
+    return userRepository.findById(id).map(user -> mapper.UserToUserDto().map(user, UserDto.class));
   }
+
+  public void updateUser(Integer id, User user) {
+    Optional<User> userData = userRepository.findById(id);
+    if (userData.isPresent()) {
+      User newUser = userData.get();
+      newUser.setRole(user.getRole());
+      newUser.setUsername(user.getUsername());
+      userRepository.save(newUser);
+    }
+  }
+
 }

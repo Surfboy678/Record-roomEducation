@@ -8,8 +8,6 @@ public class UserDto {
 
   private String role;
 
-  private boolean isEnabled;
-
   public Integer getId() {
     return id;
   }
@@ -33,12 +31,4 @@ public class UserDto {
   public void setRole(String role) {
     this.role = role;
   }
-
-  public boolean isEnabled() {
-    return isEnabled;
-  }
-
-  public void setEnabled(boolean enabled) {
-    isEnabled = enabled;
-  }
-}
+ }

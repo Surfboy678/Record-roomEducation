@@ -137,7 +137,7 @@ export default class Record extends Component {
         };
 
 
-        axios.put("http://localhost:8080/record/update", record)
+        axios.put("http://localhost:8080/record/update/" + record.id, record)
             .then(response => {
                 if (response.data != null) {
                     this.setState({"show": true, "method": "put"});
